@@ -1,10 +1,10 @@
-import 'package:fb_google_login/gmail_login/gmail_login.dart';
-import 'package:fb_google_login/providers/google_signein_provider.dart';
+import 'package:fb_google_login/home_screen.dart';
+import 'package:fb_google_login/login_page.dart';
+import 'package:fb_google_login/providers/login_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'gmail_login/home_page.dart';
 
 
 
@@ -19,7 +19,7 @@ void main() async {
     /// can use [MyApp] while mocking the providers
     MultiProvider(
       providers: [
-        Provider (create: (_) => GoogleSignInProvider()),
+        Provider (create: (_) => LoginProvider()),
         //ChangeNotifierProvider(create: (_) => Counter()),
       ],
       child: const MyApp(),
@@ -34,11 +34,18 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      routes: {
+        // When navigating to the "/" route, build the FirstScreen widget.
+        '/': (context) => const LoginPage(),
+        // When navigating to the "/second" route, build the SecondScreen widget.
+        '/home': (context) => LoggedInPage(),
+      },
+      initialRoute: '/',
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(),
+      //home: MyHomePage(),
     );
   }
 }
@@ -47,8 +54,7 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
-      body: HomePage(),
+      //body: HomePage(),
       //body: FbLogin(),
     );
   }
